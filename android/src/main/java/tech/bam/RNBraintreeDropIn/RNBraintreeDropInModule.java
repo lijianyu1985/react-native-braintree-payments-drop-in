@@ -54,7 +54,7 @@ public class RNBraintreeDropInModule extends ReactContextBaseJavaModule {
     dropInRequest.collectDeviceData(true);
 
     if(options.getBoolean("googlePay")){
-      enableGooglePay(dropInRequest);
+      enableGooglePay(dropInRequest, options);
     }
 
     if (options.hasKey("threeDSecure")) {
@@ -75,7 +75,7 @@ public class RNBraintreeDropInModule extends ReactContextBaseJavaModule {
     currentActivity.startActivityForResult(dropInRequest.getIntent(currentActivity), DROP_IN_REQUEST);
   }
 
-  private void enableGooglePay(DropInRequest dropInRequest) {
+  private void enableGooglePay(DropInRequest dropInRequest, ReadableMap options) {
 
     GooglePaymentRequest googlePaymentRequest = new GooglePaymentRequest()
       .transactionInfo(TransactionInfo.newBuilder()
