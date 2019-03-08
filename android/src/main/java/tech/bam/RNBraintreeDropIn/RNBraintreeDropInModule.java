@@ -53,8 +53,23 @@ public class RNBraintreeDropInModule extends ReactContextBaseJavaModule {
 
     dropInRequest.collectDeviceData(true);
 
-    if(options.getBoolean("googlePay")){
-      enableGooglePay(dropInRequest, options);
+    if(options.hasKey("googlePay") && options.getBoolean("googlePay")){
+      if(!options.hasKey("orderTotal")){
+        promise.reject("ORDER_TOTAL_NEEDED", "Please add parameter orderTotal");
+        return;
+      }
+      if(!options.hasKey("currencyCode")){
+        promise.reject("CURRENCY_CODE_NEEDED", "Please add parameter currencyCode");
+        return;
+      }
+      GooglePaymentRequest googlePaymentRequest = new GooglePaymentRequest()
+        .transactionInfo(TransactionInfo.newBuilder()
+          .setTotalPrice(options.getString("orderTotal"))
+          .setTotalPriceStatus(WalletConstants.TOTAL_PRICE_STATUS_FINAL)
+          .setCurrencyCode(options.getString("currencyCode"))
+          .build());
+  
+      dropInRequest.googlePaymentRequest(googlePaymentRequest);
     }
 
     if (options.hasKey("threeDSecure")) {
@@ -73,18 +88,6 @@ public class RNBraintreeDropInModule extends ReactContextBaseJavaModule {
 
     mPromise = promise;
     currentActivity.startActivityForResult(dropInRequest.getIntent(currentActivity), DROP_IN_REQUEST);
-  }
-
-  private void enableGooglePay(DropInRequest dropInRequest, ReadableMap options) {
-
-    GooglePaymentRequest googlePaymentRequest = new GooglePaymentRequest()
-      .transactionInfo(TransactionInfo.newBuilder()
-        .setTotalPrice(options.getString("orderTotal"))
-        .setTotalPriceStatus(WalletConstants.TOTAL_PRICE_STATUS_FINAL)
-        .setCurrencyCode(options.getString("currencyCode"))
-        .build());
-
-    dropInRequest.googlePaymentRequest(googlePaymentRequest);
   }
 
   private final ActivityEventListener mActivityListener = new BaseActivityEventListener() {
