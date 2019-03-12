@@ -1,11 +1,11 @@
 {
-  "name": "react-native-braintree-payments-drop-in",
+  "name": "bbt-react-native-braintree-payments-drop-in",
   "version": "1.0.1",
   "description": "React Native integration of Braintree Drop-in",
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "git@github.com:bamlab/react-native-braintree-payments-drop-in.git"
+    "url": "git@github.com:lijianyu1985/react-native-braintree-payments-drop-in.git"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -17,9 +17,9 @@
     "drop-in"
   ],
   "author": {
-    "name": "Louis Lagrange",
-    "email": "lagrange.louis@gmail.com",
-    "url": "https://github.com/Minishlink"
+    "name": "Li Jianyu",
+    "email": "lijianyu1985@live.com",
+    "url": "https://github.com/lijianyu1985/react-native-braintree-payments-drop-in.git"
   },
   "license": "MIT",
   "peerDependencies": {
